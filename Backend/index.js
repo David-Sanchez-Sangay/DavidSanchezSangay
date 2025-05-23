@@ -1,17 +1,17 @@
-
 const axios = require("axios");
 const express = require("express");
-
+const cors = require("cors");
 const app = express();
 
+app.use(cors());
 
 app.get("/usuarios", async (req, res) => {
     try {
         const response = await axios.get("https://randomuser.me/api/?results=10");
         const usuarios = response.data.results.map(usuario => ({
-            Nombre: '${usuario.name.first} ${usuario.name.last}',
+            Nombre: `${usuario.name.first} ${usuario.name.last}`,
             Genero: usuario.gender,
-            Ubicacion: '${usuario.location.city}, ${usuario.location.country}',
+            Ubicacion: `${usuario.location.city}, ${usuario.location.country}`,
             Correo: usuario.email,
             FechNac: usuario.dob.date,
             Fotografia: usuario.picture.large,
